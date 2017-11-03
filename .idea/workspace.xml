@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ebd67056-c9b8-4ee7-a436-45819fdcbcf3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-    </list>
+    <list default="true" id="ebd67056-c9b8-4ee7-a436-45819fdcbcf3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509711808072</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added information to README.md">
+      <created>1509712574046</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1509712574046</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -233,7 +237,8 @@
     <MESSAGE value="Added main.py to branch" />
     <MESSAGE value="Added check_serial.py to branch" />
     <MESSAGE value="Added Thomas Feldmann to comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Thomas Feldmann to comments" />
+    <MESSAGE value="Added information to README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added information to README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
