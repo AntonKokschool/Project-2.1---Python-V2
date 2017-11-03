@@ -10,6 +10,9 @@ def serial_ports():
             On unsupported or unknown platforms
         :returns:
             A list of the serial ports available on the system
+
+        Original code disigned by Thomas Feldmann
+        GitHub: https://github.com/tfeldmann
     """
     if sys.platform.startswith('win'):
         ports = ['COM%s' % (i + 1) for i in range(256)]
