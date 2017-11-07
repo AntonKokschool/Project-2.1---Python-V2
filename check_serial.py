@@ -44,29 +44,30 @@ Version: 2017-11-07
 """
 
 # List al Arduino's
-listArduino = []
+def checkArduino():
+    listArduino = []
 
-ser_ports = serial_ports()
-bautrate = 19200 # Bautrate for connection
-timeoutValue = 1 # Timeout value for conection
+    ser_ports = serial_ports()
+    bautrate = 19200 # Bautrate for connection
+    timeoutValue = 1 # Timeout value for conection
 
-# Tests connection for every found port
-for port in ser_ports:
+    # Tests connection for every found port
+    for port in ser_ports:
 
-    ser = serial.Serial(port, bautrate, timeout=timeoutValue)
+        ser = serial.Serial(port, bautrate, timeout=timeoutValue)
 
-    handshake = ser.readline().decode('ascii').strip()
-    if handshake == 'Arduino\n':
-        listArduino.append(port)
+        handshake = ser.readline().decode('ascii').strip()
+        if handshake == 'Arduino\n':
+            listArduino.append(port)
 
-# Display all found Arduino's
-if len(listArduino) == 0:
-    print("No Arduino('s) were found.")
-else:
-    print("Arduino('s) found on port:")
+    # Display all found Arduino's
+    if len(listArduino) == 0:
+        print("No Arduino('s) were found.")
+    else:
+        print("Arduino('s) found on port:")
 
-    for arduino in listArduino:
-        print(arduino)
+        for arduino in listArduino:
+            print(arduino)
 
 #    ser.write((command + "\n").encode('ascii'))
 #    l = ser.readline().decode('ascii').strip()
