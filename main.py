@@ -1,3 +1,3 @@
-# Main module for Python application
+# Main module for PyDuino
 
-print('Hello World!')
+print('This is the main module for PyDuino')
