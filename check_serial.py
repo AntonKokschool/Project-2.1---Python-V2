@@ -2,6 +2,7 @@ import sys
 import glob
 import serial
 
+# check serial ports module for PyDuino
 
 def serial_ports():
     """ Lists serial port names
@@ -34,6 +35,38 @@ def serial_ports():
             pass
     return result
 
+"""
+HANDSHAKE
 
-if __name__ == '__main__':
-    print(serial_ports())
+author:  Ricardo van der Vlag
+GitHub:  https://github.com/ricardovandervlag
+Version: 2017-11-07
+"""
+
+# List al Arduino's
+listArduino = []
+
+ser_ports = serial_ports()
+bautrate = 19200 # Bautrate for connection
+timeoutValue = 1 # Timeout value for conection
+
+# Tests connection for every found port
+for port in ser_ports:
+
+    ser = serial.Serial(port, bautrate, timeout=timeoutValue)
+
+    handshake = ser.readline().decode('ascii').strip()
+    if handshake == 'Arduino\n':
+        listArduino.append(port)
+
+# Display all found Arduino's
+if len(listArduino) == 0:
+    print("No Arduino('s) were found.")
+else:
+    print("Arduino('s) found on port:")
+
+    for arduino in listArduino:
+        print(arduino)
+
+#    ser.write((command + "\n").encode('ascii'))
+#    l = ser.readline().decode('ascii').strip()
