@@ -42,7 +42,6 @@ author:  Ricardo van der Vlag
 GitHub:  https://github.com/ricardovandervlag
 Version: 2017-11-08
 """
-open = False
 # Read output from Arduino
 def readArduino(i):
     # Define serial connection
@@ -77,3 +76,17 @@ def readArduino(i):
                 # Give error if connection failed
                 error = 'Cannot open serial port'
                 return error
+
+# Write to Arduino
+
+def writeArduino(command, port):
+    # Declare serial connection
+    ser = serial.Serial(port=port, baudrate=19200, timeout=1)
+    # Close existing connection
+    ser.close()
+    ser.open()
+    if (ser.isOpen()):
+        ser.write((command + "\n").encode('ascii'))
+        ser.close()
+    else:
+        print('Closed')
