@@ -1,3 +1,5 @@
-# Main module for Python application
+# Main module for PyDuino
+import check_serial
 
-print('Hello World!')
+print('This is the main module for PyDuino')
+check_serial.checkArduino()
