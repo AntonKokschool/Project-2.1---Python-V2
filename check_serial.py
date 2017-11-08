@@ -40,34 +40,39 @@ HANDSHAKE
 
 author:  Ricardo van der Vlag
 GitHub:  https://github.com/ricardovandervlag
-Version: 2017-11-07
+Version: 2017-11-08
 """
-
-# List al Arduino's
-def checkArduino():
-    listArduino = []
-
-    ser_ports = serial_ports()
-    bautrate = 19200 # Bautrate for connection
-    timeoutValue = 1 # Timeout value for conection
-
-    # Tests connection for every found port
-    for port in ser_ports:
-
-        ser = serial.Serial(port, bautrate, timeout=timeoutValue)
-
-        handshake = ser.readline().decode('ascii').strip()
-        if handshake == 'Arduino\n':
-            listArduino.append(port)
-
-    # Display all found Arduino's
-    if len(listArduino) == 0:
-        print("No Arduino('s) were found.")
-    else:
-        print("Arduino('s) found on port:")
-
-        for arduino in listArduino:
-            print(arduino)
-
-#    ser.write((command + "\n").encode('ascii'))
-#    l = ser.readline().decode('ascii').strip()
+open = False
+# Read output from Arduino
+def readArduino(i):
+    # Define serial connection
+    ser = serial.Serial(port=i, baudrate=19200, timeout=1)
+    # Close all connections
+    ser.close()
+    # Declare stop sign
+    stop = (b'\n').decode('ascii')
+    # Try to open a connection with ser
+    try:
+        ser.open()
+        open = True
+    except:
+        open = False
+    # Declare string for return statement
+    word = ''
+    # Read output if connection is opened
+    if (open):
+        try:
+            # Read from ser
+            while (open):
+                read = ser.read().decode('ascii')
+                # Return word if stop sign was given
+                if (read == stop):
+                    print(word)
+                    exit()
+                # Update word with next character
+                else:
+                    word += read
+        except Exception:
+            # Give error if connection failed
+            error = 'Cannot open serial port'
+            print(error)
