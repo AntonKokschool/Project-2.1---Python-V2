@@ -61,18 +61,19 @@ def readArduino(i):
     word = ''
     # Read output if connection is opened
     if (open):
-        try:
-            # Read from ser
-            while (open):
+        # Read from ser
+        while (open):
+            # Try to read from ser
+            try:
                 read = ser.read().decode('ascii')
                 # Return word if stop sign was given
                 if (read == stop):
-                    print(word)
+                    return word
                     exit()
                 # Update word with next character
                 else:
                     word += read
-        except Exception:
-            # Give error if connection failed
-            error = 'Cannot open serial port'
-            print(error)
+            except Exception:
+                # Give error if connection failed
+                error = 'Cannot open serial port'
+                return error
