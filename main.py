@@ -5,7 +5,7 @@ import time
 triesLeft = 5
 i = 0
 foundArduino = False
-
+""""
 def ledBlink():
     i = 3
     commands = ['led1aan','led2aan','led1uit','led2uit']
@@ -31,3 +31,10 @@ try:
         print('Arduino was not found')
 except:
     print('Arduino was not found')
+    
+
+"""
+
+while (True):
+    r = read_write.readArduino()
+    print(r)
