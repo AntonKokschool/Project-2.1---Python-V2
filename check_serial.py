@@ -2,9 +2,11 @@ import sys
 import glob
 import serial
 
+
+
 # check serial ports module for PyDuino
 
-def serial_ports():
+def serialPorts():
     """ Lists serial port names
 
         :raises EnvironmentError:
@@ -36,57 +38,8 @@ def serial_ports():
     return result
 
 """
-HANDSHAKE
-
 author:  Ricardo van der Vlag
 GitHub:  https://github.com/ricardovandervlag
 Version: 2017-11-08
 """
-# Read output from Arduino
-def readArduino(i):
-    # Define serial connection
-    ser = serial.Serial(port=i, baudrate=19200, timeout=1)
-    # Close all connections
-    ser.close()
-    # Declare stop sign
-    stop = (b'\n').decode('ascii')
-    # Try to open a connection with ser
-    try:
-        ser.open()
-        open = True
-    except:
-        open = False
-    # Declare string for return statement
-    word = ''
-    # Read output if connection is opened
-    if (open):
-        # Read from ser
-        while (open):
-            # Try to read from ser
-            try:
-                read = ser.read().decode('ascii')
-                # Return word if stop sign was given
-                if (read == stop):
-                    return word
-                    exit()
-                # Update word with next character
-                else:
-                    word += read
-            except Exception:
-                # Give error if connection failed
-                error = 'Cannot open serial port'
-                return error
 
-# Write to Arduino
-
-def writeArduino(command, port):
-    # Declare serial connection
-    ser = serial.Serial(port=port, baudrate=19200, timeout=1)
-    # Close existing connection
-    ser.close()
-    ser.open()
-    if (ser.isOpen()):
-        ser.write((command + "\n").encode('ascii'))
-        ser.close()
-    else:
-        print('Closed')
