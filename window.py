@@ -1,3 +1,9 @@
+"""
+
+hierin heb ik een poging gedaan om een klasse voor knoppen te maken (het is overigens niet echt gelukt)
+
+"""
+
 from tkinter import *
 
 

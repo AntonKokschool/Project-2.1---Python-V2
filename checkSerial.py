@@ -42,4 +42,3 @@ author:  Ricardo van der Vlag
 GitHub:  https://github.com/ricardovandervlag
 Version: 2017-11-08
 """
-
