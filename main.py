@@ -1,40 +1,32 @@
 # Main module for PyDuino
-import read_write
-import time
+import checkSerial
+import arduinoClass
 
-triesLeft = 5
-i = 0
-foundArduino = False
-""""
-def ledBlink():
-    i = 3
-    commands = ['led1aan','led2aan','led1uit','led2uit']
-    while i > 0:
-        for command in commands:
-            read_write.writeArduino(command)
-            print(command, i)
-            time.sleep(0.5)
-        i -= 1
+listLight = ["bright", "light", "dim"]
 
-try:
-    while (i < triesLeft):
-        ret = read_write.writeArduino('hello')
-        if (ret == ('OK', 'IkBenEr!')):
-            ledBlink()
-            i = triesLeft
-            foundArduino = True
-        else:
-            triesLeft -= 1
-    if (foundArduino):
-        print('Arduino was found')
-    else:
-        print('Arduino was not found')
-except:
-    print('Arduino was not found')
-    
+def availableArduinos():
+    ports = checkSerial.serialPorts()
+    arduinos = {}
 
-"""
+    for port in ports:
+        arduinos[port] = arduinoClass.Arduino('Arduino',port,listLight)
 
-while (True):
-    r = read_write.readArduino()
-    print(r)
+    availableArduinos = []
+
+    for port in ports:
+        connection = arduinos[port].openConnection()
+
+        triesLeft = 5
+        while (triesLeft > 0):
+            try:
+                response = arduinos[port].writeArduino('Are you Arduino?', connection)
+                triesLeft -= 1
+                if (response == ('OK', 'I am Arduino!')):
+                    triesLeft = 0
+                    availableArduinos.append(port)
+            except:
+                print("ERROR")
+
+    return availableArduinos
+
+print(availableArduinos())
