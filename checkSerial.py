@@ -2,8 +2,6 @@ import sys
 import glob
 import serial
 
-
-
 # check serial ports module for PyDuino
 
 def serialPorts():
