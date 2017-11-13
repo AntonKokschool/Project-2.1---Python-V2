@@ -14,10 +14,15 @@ functies van knoppen
 def home():
     print("ga naar home")
 
-def arduinoPage():
-    print("ga naar arduino")
+def arduinoPage(arduino):
+    port = arduinos[arduino].returnPort()
+    print(port)
+
+def close():
+    root.destroy()
 
 root = Tk()
+
 
 """
 geeft aan de onderkant van het beeld de status van de handshake weer.
@@ -46,12 +51,16 @@ availableArduinos = availableArduinos.availableArduinos()
 empty = []
 
 len = len(availableArduinos)
+row = 1
 
 if (len > 0):
     for arduino in availableArduinos:
-        arduino = Button(arduinoOverzicht, text=arduino, command=arduinoPage)
-        arduino.grid(row=1, padx=2, pady=2)
+        arduino = Button(arduinoOverzicht, text=arduino, command=arduinoPage(arduino))
+        arduino.grid(row=row, padx=2, pady=2)
+        row += 1
 
+close = Button(arduinoOverzicht, text='Afsluiten', command=close)
+close.grid(row=row, padx=2, pady=2)
 """
 geeft de locatie weer van de knoppen
 row geeft de volg orde van boven naar beneden
