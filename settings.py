@@ -8,7 +8,7 @@ knop toepassen en uit breiden
 
 from tkinter import *
 
-root = Tk()
+setting = Tk()
 
 poortVar = "COM4"
 
@@ -16,11 +16,15 @@ poortVar = "COM4"
 labels namen geven
 """
 
-naam = Label(root, text="Naam:")
-uitrol = Label(root, text="Uitrol:")
-licht = Label(root, text="licht:")
-poort = Label(root, text="Poort:")
-poortNaam = Label(root, text=poortVar)
+naam = Label(setting, text="Naam:")
+uitrol = Label(setting, text="Uitrol:")
+licht = Label(setting, text="licht:")
+poort = Label(setting, text="Poort:")
+poortNaam = Label(setting, text=poortVar)
+
+def aply():
+    print('Toegepast')
+    setting.destroy()
 
 """
 locatie van de labels
@@ -34,9 +38,9 @@ poortNaam.grid(row=3, column=1)
 """
 invoervelden maken
 """
-invoerNaam = Entry(root)
-invoerUitrol = Entry(root)
-invoerLicht = Entry(root)
+invoerNaam = Entry(setting)
+invoerUitrol = Entry(setting)
+invoerLicht = Entry(setting)
 
 """
 locatie invoervelden
@@ -49,19 +53,19 @@ invoerLicht.grid(row=2, column=1)
 """
 knoppen maken
 """
-toepassen = Button(root, text="toepassen")
+aply = Button(setting, text="Toepassen", command=aply)
 
 """
 locatie knoppen
 """
-toepassen.grid(row=4, sticky=W)
+aply.grid(row=4, sticky=W)
 
 """
 error label maken
 """
-naamError = Label(root, text="invoerveld 'Naam' is niet  goed ingevuld", fg="red")
-uitrolError = Label(root, text="invoerveld 'Uitrol' is niet goed ingevuld", fg="red")
-lichtError = Label(root, text="invoerveld 'licht' is niet goed ingevuld", fg="red")
+naamError = Label(setting, text="invoerveld 'Naam' is niet  goed ingevuld", fg="red")
+uitrolError = Label(setting, text="invoerveld 'Uitrol' is niet goed ingevuld", fg="red")
+lichtError = Label(setting, text="invoerveld 'licht' is niet goed ingevuld", fg="red")
 
 """
 error locatie
@@ -71,4 +75,4 @@ naamError.grid(row=0, column=2, sticky=W)
 uitrolError.grid(row=1, column=2, sticky=W)
 lichtError.grid(row=2, column=2, sticky=W)
 
-root.mainloop()
+setting.mainloop()

@@ -14,14 +14,13 @@ functies van knoppen
 def home():
     print("ga naar home")
 
-def arduinoPage():
-    print('Hello!')
+def arduinoPage(port):
+    print('Hello')
 
 def close():
     root.destroy()
 
 root = Tk()
-
 
 """
 geeft aan de onderkant van het beeld de status van de handshake weer.
@@ -75,3 +74,5 @@ arduinoOverzicht.pack(side=LEFT, fill=Y)
 
 def setupMenu():
     root.mainloop()
+
+setupMenu()

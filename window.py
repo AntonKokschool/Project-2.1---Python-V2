@@ -26,9 +26,9 @@ class Knoppen:
         self.tweedeButton.pack(side=LEFT)
 
 
-root = Tk()
+window = Tk()
 
-app = Knoppen(root)
+app = Knoppen(window)
 
 
 def leftClick(klik):
@@ -43,10 +43,10 @@ def rightClick(klik):
     print("right")
 
 
-frame = Frame(root, width=300, height=250)
+frame = Frame(window, width=300, height=250)
 frame.bind("<Button-1>", leftClick)
 frame.bind("<Button-2>", middleClick)
 frame.bind("<Button-3>", rightClick)
 frame.pack()
 
-root.mainloop()
+window.mainloop()
