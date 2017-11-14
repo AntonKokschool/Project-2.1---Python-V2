@@ -14,9 +14,8 @@ functies van knoppen
 def home():
     print("ga naar home")
 
-def arduinoPage(arduino):
-    port = arduinos[arduino].returnPort()
-    print(port)
+def arduinoPage():
+    print('Hello!')
 
 def close():
     root.destroy()
@@ -55,7 +54,7 @@ row = 1
 
 if (len > 0):
     for arduino in availableArduinos:
-        arduino = Button(arduinoOverzicht, text=arduino, command=arduinoPage(arduino))
+        arduino = Button(arduinoOverzicht, text=arduino, command=arduinoPage)
         arduino.grid(row=row, padx=2, pady=2)
         row += 1
 
