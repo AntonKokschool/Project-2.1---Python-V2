@@ -335,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510833161981</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Removed main.py and added gear.png">
+      <created>1510833576923</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1510833576923</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -387,7 +394,8 @@
     <MESSAGE value="Moved contend from availableArduinos.py to menu.py" />
     <MESSAGE value="Removed availableArduinos.py" />
     <MESSAGE value="Removed main.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed main.py" />
+    <MESSAGE value="Removed main.py and added gear.png" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed main.py and added gear.png" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
