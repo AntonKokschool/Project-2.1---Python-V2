@@ -1,25 +1,5 @@
 import serial
 import time
-"""
-
-klasse arduino vanuit  oogpunt van layout
-
-    mockup voorbeeld                                     wat moet het doen      done/moeilijkheden
-    poort weergeven                                      return                 gedaan
-    naam weergeven                                       return                 gedaan
-    oprol                                                static variable        weet niet hoe static werkt
-    uitrol de maximale uitrol afstand                    aanpasbare variable    gedaan
-    status waar is de arduino mee bezig                  return                 gedaan
-    licht kan 3 waarden hebben "bright, light or dim"    return                 gedaan
-    temperatuur weergaven                                return                 gedaan
-    automatisch                                          ????                   ik weet niet hoe dit eruit moet zien
-    handmatig                                            ????                   ik weet niet hoe dit eruit moet zien
-    vergrendelen                                         ????                   ik weet niet hoe dit eruit moet zien
-
-"""
-
-listLight = ["bright", "light", "dim"]
-
 
 class Arduino:
 
@@ -28,10 +8,9 @@ class Arduino:
     tempeture = 20
     status = ""
 
-    def __init__(self, name, port, listLight):
+    def __init__(self, name, port):
         self.name = name
         self.port = port
-        self.listLight = listLight
         self.ser = serial.Serial(port=port, baudrate=19200, timeout=1)
 
     #
