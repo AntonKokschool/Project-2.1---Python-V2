@@ -33,12 +33,12 @@ def arduinoPage(port):
     print('Hello')
 
 def close():
-    root.destroy()
+    pyduino.destroy()
 
-root = Tk()
-status = Label(root, text="© European IT Company", bd=1, relief=SUNKEN, anchor=W)
+pyduino = Tk()
+status = Label(pyduino, text="© European IT Company", bd=1, relief=SUNKEN, anchor=W)
 status.pack(side=BOTTOM, fill=X)
-arduinoOverzicht = Frame(root, bg="blue")
+arduinoOverzicht = Frame(pyduino, bg="blue")
 
 home = Button(arduinoOverzicht, text="Hoofdscherm", command=home)
 empty = []
@@ -58,7 +58,4 @@ close.grid(row=row, padx=2, pady=2)
 home.grid(row=0, padx=2, pady=2)
 arduinoOverzicht.pack(side=LEFT, fill=Y)
 
-def setupMenu():
-    root.mainloop()
-
-setupMenu()
+pyduino.mainloop()
