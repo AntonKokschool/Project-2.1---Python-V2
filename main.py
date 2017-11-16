@@ -35,12 +35,22 @@ def arduinoPage(port):
 def close():
     pyduino.destroy()
 
+# Define PyDuino GUI
 pyduino = Tk()
-status = Label(pyduino, text="© European IT Company", bd=1, relief=SUNKEN, anchor=W)
+# Set icon
+pyduino.iconbitmap('PyDuino.ico')
+# Set window name
+pyduino.title('PyDuino V2')
+# Set frame size for pyduino
+pyduino.geometry("500x500")
+# Set status bar
+status = Label(pyduino, text="© European IT Company - Zeng Ltd.", bd=1, relief=SUNKEN, anchor=W)
+# Define position for statusbar
 status.pack(side=BOTTOM, fill=X)
-arduinoOverzicht = Frame(pyduino, bg="blue")
+# Set background color for content bar
+backgroundFrame = Frame(pyduino, bg="blue")
 
-home = Button(arduinoOverzicht, text="Hoofdscherm", command=home)
+home = Button(backgroundFrame, text="Hoofdscherm", command=home)
 empty = []
 
 len = len(availableArduinos)
@@ -48,14 +58,14 @@ row = 1
 
 if (len > 0):
     for arduino in availableArduinos:
-        arduino = Button(arduinoOverzicht, text=arduino, command=arduinoPage)
+        arduino = Button(backgroundFrame, text=arduino, command=arduinoPage)
         arduino.grid(row=row, padx=2, pady=2)
         row += 1
 
-close = Button(arduinoOverzicht, text='Afsluiten', command=close)
+close = Button(backgroundFrame, text='Afsluiten', command=close)
 close.grid(row=row, padx=2, pady=2)
 
 home.grid(row=0, padx=2, pady=2)
-arduinoOverzicht.pack(side=LEFT, fill=Y)
+backgroundFrame.pack(side=LEFT, fill=Y)
 
 pyduino.mainloop()
