@@ -1,15 +1,30 @@
-import availableArduinos
-"""
-
-hier staat de lijst en home knop van arduino (zijkant van mockups)
-
-"""
-
+import checkSerial
+import arduinoClass
 from tkinter import *
 
-"""
-functies van knoppen
-"""
+listLight = ["bright", "light", "dim"]
+
+ports = checkSerial.serialPorts()
+arduinos = {}
+
+for port in ports:
+    arduinos[port] = arduinoClass.Arduino('Arduino',port,listLight)
+
+availableArduinos = []
+
+for port in ports:
+    connection = arduinos[port].openConnection()
+
+    triesLeft = 5
+    while (triesLeft > 0):
+        try:
+            response = arduinos[port].writeArduino('Are you Arduino?', connection)
+            triesLeft -= 1
+            if (response == ('OK', 'I am Arduino!')):
+                triesLeft = 0
+                availableArduinos.append(port)
+        except:
+            print("ERROR")
 
 def home():
     print("ga naar home")
@@ -21,31 +36,11 @@ def close():
     root.destroy()
 
 root = Tk()
-
-"""
-geeft aan de onderkant van het beeld de status van de handshake weer.
-vervang text variable status handshake met de variable
-"""
 status = Label(root, text="© European IT Company", bd=1, relief=SUNKEN, anchor=W)
 status.pack(side=BOTTOM, fill=X)
-
-"""
-arduino lijst/overzicht aan de zijkant
-"""
-
-"""
-maak de achtergrond blauw
-"""
 arduinoOverzicht = Frame(root, bg="blue")
 
-"""
-initaliseren van knoppen
-naam van de knop kan aangepast worden door het woord na text
-"""
-
 home = Button(arduinoOverzicht, text="Hoofdscherm", command=home)
-
-availableArduinos = availableArduinos.availableArduinos()
 empty = []
 
 len = len(availableArduinos)
@@ -59,17 +54,8 @@ if (len > 0):
 
 close = Button(arduinoOverzicht, text='Afsluiten', command=close)
 close.grid(row=row, padx=2, pady=2)
-"""
-geeft de locatie weer van de knoppen
-row geeft de volg orde van boven naar beneden
-padx geeft het aantal pixels die links en rechts van de knop leeg blijft
-pady geeft het aantal pixels dat boven en onder van de knop leeg blijft
-"""
 
 home.grid(row=0, padx=2, pady=2)
-"""
-zet alles aan de linker kant en vult het frame van boven naar beneden (het frame is blauw dus maakt het blauw langs de zijkant)
-"""
 arduinoOverzicht.pack(side=LEFT, fill=Y)
 
 def setupMenu():
