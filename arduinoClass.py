@@ -8,8 +8,8 @@ class Arduino:
     tempeture = 20
     status = ""
 
-    def __init__(self, name, port):
-        self.name = name
+    def __init__(self, port):
+        self.name = 'Arduino'
         self.port = port
         self.ser = serial.Serial(port=port, baudrate=19200, timeout=1)
 

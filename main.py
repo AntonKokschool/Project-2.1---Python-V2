@@ -14,7 +14,7 @@ arduinos = {}
 
 # Make an object from Arduino class for every found port
 for port in ports:
-    arduinos[port] = arduinoClass.Arduino('Arduino', port)
+    arduinos[port] = arduinoClass.Arduino(port)
 
 # List for every acutal Arduino
 availableArduinos = []
@@ -37,6 +37,7 @@ for port in ports:
 
 # Start PyDuino
 def run():
+
     pyduino.mainloop()
 
 # Function for home button
@@ -50,10 +51,6 @@ def arduinoPage(port):
 # Function for close button
 def close():
     pyduino.destroy()
-
-# Function fot restarting
-def printPort():
-    print(currentPort.getPort())
 
 # Function for receiving status from Arduino
 def getStatus():
@@ -78,78 +75,75 @@ def rollDown():
 # Define PyDuino GUI
 pyduino = Tk()
 
-# Define row
-row = 1
-# Define button width
-buttonWidth = "15"
-
 # Set icon
 pyduino.iconbitmap('PyDuino.ico')
 # Set window name
 pyduino.title('PyDuino')
 # Set frame size for pyduino
-pyduino.geometry("600x500")
+pyduino.geometry("550x500")
 # Set status bar
 status = Label(pyduino, text="© European IT Company - Zeng Ltd.", bd=1, relief=SUNKEN, anchor=W)
 # Define row for statusbar
 status.pack(side=BOTTOM, fill=X)
 # Set background color for content bar
 menuFrame = Frame(pyduino, bg="#3776AA")
-# Define home button
-home = Button(menuFrame, text="Hoofdscherm", command=home)
-home.grid(row=0, padx=2, pady=2)
-home.config(width=buttonWidth)
 menuFrame.pack(side=LEFT, fill=Y)
 
-# Create button for for every available Arduino
-for arduino in availableArduinos:
-    arduino = Button(menuFrame, text=arduino, command=arduinoPage(arduino))
-    arduino.grid(row=row, padx=2, pady=2)
-    arduino.config(width=buttonWidth)
-    row += 1 # Update row
-
-# Define close button
-restart = Button(menuFrame, text='Print huidige port', command=printPort)
-restart.grid(row=row, padx=2, pady=2)
-restart.config(width=buttonWidth)
-row += 1 # Update row
+# Setup close button
 close = Button(menuFrame, text='Afsluiten', command=close)
-close.grid(row=row, padx=2, pady=2)
-close.config(width=buttonWidth)
-
-# Set background color for canvas
-canvasFrame = Frame(pyduino)
-canvasFrame.pack(side=RIGHT, fill=Y)
-# Define row for button row
-row = 1
-# Define button width
-buttonWidth = "15"
 
 # Define row
 row = 0
 # Define button width
 buttonWidth = "15"
 
-# Create image
+# Create button for for every available Arduino
+for arduino in availableArduinos:
+    name = arduinos[arduino].returnName()
+    arduino = Button(menuFrame, text=name, command=arduinoPage(arduino))
+    arduino.grid(row=row, padx=2, pady=2)
+    arduino.config(width=buttonWidth)
+    row += 1 # Update row
+
+# Define close button
+close.grid(row=row, padx=2, pady=2)
+close.config(width=buttonWidth)
+
+# Set background color for canvas
+canvasFrame = Frame(pyduino)
+canvasFrame.pack(side=RIGHT, fill=Y)
+
+# Setup image
 image = PhotoImage(file='PyDuino.png')
+# Setup status button and label
+statusButton = Button(canvasFrame, text='Vraag status op', command=getStatus)
+# Setup image
 imageLabel = Label(canvasFrame, image=image, justify=RIGHT, width=400)
+# Setup roll up button
+rollUpButton = Button(canvasFrame, text='Rol scherm op', command=rollUp)
+# Setup roll down button
+rollDownButton = Button(canvasFrame, text='Rol scherm uit', command=rollDown)
+
+# Define row for button row
+row = 1
+# Define button width
+buttonWidth = "15"
+
+# Create image
 imageLabel.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
 
 # Create status button and label
-statusButton = Button(canvasFrame, text='Vraag status op', command=getStatus)
 statusButton.config(width=buttonWidth)
 statusButton.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
 
 # Create roll up button
-rollUpButton = Button(canvasFrame, text='Rol scherm op', command=rollUp)
 rollUpButton.config(width=buttonWidth)
 rollUpButton.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
 
 # Create roll down button
-rollDownButton = Button(canvasFrame, text='Rol scherm uit', command=rollDown)
 rollDownButton.config(width=buttonWidth)
 rollDownButton.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
