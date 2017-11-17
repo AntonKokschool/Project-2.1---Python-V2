@@ -13,7 +13,6 @@ class Arduino:
         self.port = port
         self.ser = serial.Serial(port=port, baudrate=19200, timeout=1)
 
-    #
     def openConnection(self):
         # Close connection
         self.ser.close()
