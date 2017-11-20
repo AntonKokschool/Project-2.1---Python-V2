@@ -41,6 +41,11 @@ class Arduino:
                     l = None
             return (l, extra_info)
 
+    def readArduino(self, connection):
+        if connection:
+            read = self.ser.readline().decode('ascii').strip()
+            return read
+
     def returnName(self):
         return self.name
 
