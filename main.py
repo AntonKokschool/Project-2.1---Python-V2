@@ -38,8 +38,16 @@ for port in ports:
 
 # Start PyDuino
 def run():
-
     pyduino.mainloop()
+
+def update():
+    port = currentPort.getPort()
+    if port == '':
+        text = 'Selecteer een zonnescherm uit het linker menu'
+    else:
+        text = 'Huidig zonnescherm: ' + port
+        arduinoLabel.config(text=text)
+        printStatus()
 
 # Function for home button
 def home():
@@ -48,10 +56,9 @@ def home():
 # Function for Arduino button
 def arduinoPage(port):
     currentPort.setPort(port)
-    print('test')
 
 # Function for close button
-def close():
+def closeGUI():
     pyduino.destroy()
 
 # Function for receiving status from Arduino
@@ -60,29 +67,32 @@ def getStatus():
     status = arduinos[port].writeArduino('Status', True)
     return status
 
+# Function for
 def printStatus():
-    print(getStatus())
+    portStat = currentPort.getPort()
+    if portStat == (''):
+        statusLabel.config(text='Status niet beschikbaar')
+        pass
+    status = getStatus()
+    if status[0] == ('OK'):
+        if status[1] == ('Rolled down'):
+            statusLabel.config(text='Status: Uitgerold')
+        if status[1] == ('Rolled up'):
+            statusLabel.config(text='Status: Opgerold')
 
 # Function for rolling up
 def rollUp():
     port = currentPort.getPort()
-    status = arduinos[port].writeArduino('Rol up', True)
-    print(status)
-    triesLeft = 5
-    if status == ('OK', 'Already up'):
-        triesLeft = 0
-    while (triesLeft > 0):
-        status = arduinos[port].readArduino(True)
-        print(status)
-        triesLeft -= 1
+    arduinos[port].writeArduino('Rol up', True)
+    for i in range(5):
+        update()
 
 # Function for rolling up
 def rollDown():
     port = currentPort.getPort()
-    status = arduinos[port].writeArduino('Rol down', True)
-    print(status)
-    status = arduinos[port].readArduino(True)
-    print(status)
+    arduinos[port].writeArduino('Rol down', True)
+    for i in range(5):
+        update()
 
 def getPort():
     port = currentPort.getPort()
@@ -105,9 +115,6 @@ status.pack(side=BOTTOM, fill=X)
 menuFrame = Frame(pyduino, bg="#3776AA")
 menuFrame.pack(side=LEFT, fill=Y)
 
-# Setup close button
-close = Button(menuFrame, text='Afsluiten', command=close)
-
 # Define row
 row = 0
 # Define button width
@@ -121,26 +128,29 @@ for arduino in availableArduinos:
     arduinoButton[arduino].config(width=buttonWidth)
     row += 1 # Update row
 
-# Define get port button
-portButton = Button(menuFrame, text='Print port', command=getPort)
+# Define update button
+portButton = Button(menuFrame, text='Update', command=update)
 portButton.grid(row=row, padx=2, pady=2)
 portButton.config(width=buttonWidth)
 row += 1 # Update row
 
 # Define close button
+close = Button(menuFrame, text='Afsluiten', command=closeGUI)
 close.grid(row=row, padx=2, pady=2)
 close.config(width=buttonWidth)
 
-# Set background color for canvas
+# Setup canvas
 canvasFrame = Frame(pyduino)
 canvasFrame.pack(fill=Y)
 
 # Setup image
 image = PhotoImage(file='PyDuino.png')
-# Setup status button and label
-statusButton = Button(canvasFrame, text='Vraag status op', command=printStatus)
 # Setup image
 imageLabel = Label(canvasFrame, image=image, justify=RIGHT, width=400)
+# Setup status label
+arduinoLabel = Label(canvasFrame)
+# Setup status label
+statusLabel = Label(canvasFrame)
 # Setup roll up button
 rollUpButton = Button(canvasFrame, text='Rol scherm op', command=rollUp)
 # Setup roll down button
@@ -155,9 +165,14 @@ buttonWidth = "15"
 imageLabel.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
 
-# Create status button and label
-statusButton.config(width=buttonWidth)
-statusButton.grid(row=row, padx=2, pady=2)
+# Create Arduino label
+arduinoLabel.config(text='Selecteer een zonnescherm uit het linker menu')
+arduinoLabel.grid(row=row, padx=2, pady=2)
+row += 1 # Update row
+
+# Create status label
+statusLabel.config(text='Status niet beschikbaar')
+statusLabel.grid(row=row, padx=2, pady=2)
 row += 1 # Update row
 
 # Create roll up button
