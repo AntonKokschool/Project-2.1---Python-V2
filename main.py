@@ -1,7 +1,6 @@
 import checkSerial
 import arduinoClass
 import portClass
-import os
 from tkinter import *
 
 # Create portClass instance
@@ -9,8 +8,10 @@ currentPort = portClass.port()
 
 # Check all ports
 ports = checkSerial.serialPorts()
-# Create dict for making a object for every port
+# Create dict for making an object for every port
 arduinos = {}
+# Create dict for making a button for every Arduino
+arduinoButton = {}
 
 # Make an object from Arduino class for every found port
 for port in ports:
@@ -47,6 +48,7 @@ def home():
 # Function for Arduino button
 def arduinoPage(port):
     currentPort.setPort(port)
+    print('test')
 
 # Function for close button
 def close():
@@ -56,21 +58,35 @@ def close():
 def getStatus():
     port = currentPort.getPort()
     status = arduinos[port].writeArduino('Status', True)
-    print(status)
+    return status
+
+def printStatus():
+    print(getStatus())
 
 # Function for rolling up
 def rollUp():
     port = currentPort.getPort()
     status = arduinos[port].writeArduino('Rol up', True)
     print(status)
-    getStatus()
+    triesLeft = 5
+    if status == ('OK', 'Already up'):
+        triesLeft = 0
+    while (triesLeft > 0):
+        status = arduinos[port].readArduino(True)
+        print(status)
+        triesLeft -= 1
 
 # Function for rolling up
 def rollDown():
     port = currentPort.getPort()
     status = arduinos[port].writeArduino('Rol down', True)
     print(status)
-    getStatus()
+    status = arduinos[port].readArduino(True)
+    print(status)
+
+def getPort():
+    port = currentPort.getPort()
+    print(port)
 
 # Define PyDuino GUI
 pyduino = Tk()
@@ -99,11 +115,17 @@ buttonWidth = "15"
 
 # Create button for for every available Arduino
 for arduino in availableArduinos:
-    name = arduinos[arduino].returnName()
-    arduino = Button(menuFrame, text=name, command=arduinoPage(arduino))
-    arduino.grid(row=row, padx=2, pady=2)
-    arduino.config(width=buttonWidth)
+    name = arduino
+    arduinoButton[arduino] = Button(menuFrame, text=name, command=lambda arduino=arduino: arduinoPage(arduino))
+    arduinoButton[arduino].grid(row=row, padx=2, pady=2)
+    arduinoButton[arduino].config(width=buttonWidth)
     row += 1 # Update row
+
+# Define get port button
+portButton = Button(menuFrame, text='Print port', command=getPort)
+portButton.grid(row=row, padx=2, pady=2)
+portButton.config(width=buttonWidth)
+row += 1 # Update row
 
 # Define close button
 close.grid(row=row, padx=2, pady=2)
@@ -111,12 +133,12 @@ close.config(width=buttonWidth)
 
 # Set background color for canvas
 canvasFrame = Frame(pyduino)
-canvasFrame.pack(side=RIGHT, fill=Y)
+canvasFrame.pack(fill=Y)
 
 # Setup image
 image = PhotoImage(file='PyDuino.png')
 # Setup status button and label
-statusButton = Button(canvasFrame, text='Vraag status op', command=getStatus)
+statusButton = Button(canvasFrame, text='Vraag status op', command=printStatus)
 # Setup image
 imageLabel = Label(canvasFrame, image=image, justify=RIGHT, width=400)
 # Setup roll up button
